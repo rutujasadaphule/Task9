@@ -1,0 +1,309 @@
+<html>
+    <head><title>Kubernetes</title>
+        <style>
+            * {
+                background-color: black;
+            }
+            .row {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                }
+            .button_slide {
+                text-align:center;
+                width: 100px;
+                margin-left: 4px;
+                margin-right: 4px;
+                color: #FFF;
+                border: 2px solid rgb(216, 2, 134);
+                border-radius: 0px;
+                padding: 18px 36px;
+                display: inline-block;
+                font-family: "Lucida Console", Monaco, monospace;
+                font-size: 14px;
+                letter-spacing: 1px;
+                cursor: pointer;
+                box-shadow: inset 0 0 0 0 #D80286;
+                -webkit-transition: ease-out 0.4s;
+                -moz-transition: ease-out 0.4s;
+                transition: ease-out 0.4s;
+}
+            .slide_down:hover {
+                box-shadow: inset 0 100px 0 0 #D80286;
+}
+            #roger{
+                border: solid;
+                border-width: 1px;
+                border-color: white;
+                border-radius: 10px;
+                width: 40%;
+                margin-left: 2.5%;
+                margin-right: 2%;
+                background-color: black;
+                color: white;
+                vertical-align: middle;
+                text-align: center;
+                font-weight: bold;
+                font-style: oblique;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                padding-top: 12px;
+            }
+            .row1:after {
+                display: table;
+                clear: both;
+                }
+            .row1 {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                }
+            .column1 {
+                border: solid;
+                border-color: white;
+                border-radius: 10px;
+                width: 15%;
+                padding: 2px 40px 90px 40px; /* top right bottom left*/
+                height: 120px;
+                background-color: yellow;
+                margin: 20px;
+                margin-top: 50px;
+                margin-left: 47px;
+            }
+            .column2 {
+                 border: solid;
+                border-width: 1px;
+                border-color: white;
+                width: 35%;
+                padding: 40px;
+                height: 200px;
+                background-color: black;
+                margin: 10px;
+                margin-left: 47px;
+                overflow: hidden;
+            }
+            .column3 {
+                border: solid;
+                border-radius: 10px;
+                width: 15%;
+                padding:2px 40px 90px 40px;
+                height: 120px;
+                background-color: yellow;
+                margin: 0px;
+                margin-left: 40px;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div class="he">
+            <h1 style="text-align: center; margin-top: 15px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: white; margin-left: 10px;">| KUBERNETES |</h1>
+
+        </div>
+        <div class="row">
+            <div class="button_slide slide_down" style="background-color:#050785;" onclick="node()">Nodes</div>
+            <div class="button_slide slide_down" style="background-color:#050785;" onclick="po()">POD</div>
+            <div id="roger" style="overflow-x:scroll;">command</div>
+            <div class="button_slide slide_down" style="background-color:#050785;" onclick="deployments()">Deployments</div>
+            <div class="button_slide slide_down" style="background-color:#050785;" onclick="serv()">Services</div>
+          </div>
+        <section>
+            <div class="row1">
+                <div class="column1">
+                    <h3 style="background-color: yellow; text-align: center; margin-top: 0px; font-weight: bold;">Run Pod</h3>
+                    <p style="background-color: yellow; font-weight: bold;">Enter pod name:<input id="podName1" style="background-color: black; color: white;"></p>     
+                    <p style="background-color: yellow; font-weight: bold;">Enter image name:<input id="imageName1" style="background-color: black; color: white;"></p> 
+                    <div class="button_slide slide_down" style="background-color: #050785;" onclick="runpodo()">run</div>
+                </div>
+                <div class="column2">
+                    <pre style="background-color: black; color:white; padding:2px, 40px, 2px, 40px; overflow:auto; ">
+                        <div id="cmds" style="overflow:auto; padding:2px, 40px, 2px, 40px; background-color:black; font-weight: bold; text-align: center; color: white; height: 200px; font-style: oblique; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Output will be shown here..</div></pre>
+                </div>
+                <div class="column1">
+                    <h3 style="background-color: yellow; text-align: center; margin-top: 0px; font-weight: bold;">Create Deployment</h3>
+                    <p style="background-color: yellow; font-weight: bold;">Enter deployment name:<input id="deploymentName1" style="background-color: black; color: white;"></p>
+                    <p style="background-color: yellow; font-weight: bold;">Enter image name:<input id="imageName2" style="background-color: black; color: white;"></p> 
+                    <div class="button_slide slide_down" style="background-color: #050785;" onclick="rundeployment()">create</div>
+                </div>
+            </div>
+            <div class="row1">
+                <div class="column3">
+                    <h3 style="background-color: yellow; text-align: center; margin-top: 0px; font-weight: bold;">Scale Replicas</h3>
+                    <p style="background-color: yellow; font-weight: bold;">Enter deployment name:<input id="deploymentName2" style="background-color: black; color: white;"></p>
+                    <p style="background-color: yellow; font-weight: bold;">Enter No. of Replicas:<input id="replicas" style="background-color: black; color: white;"></p>
+                    <div class="button_slide slide_down" style="background-color: #050785;" onclick="replica()">scale</div>
+                </div>
+                <div class="column3">
+                    <h3 style="background-color: yellow; text-align: center; margin-top: 0px; font-weight: bold;">Expose Services</h3>
+                    <p style="background-color: yellow; font-weight: bold;">Enter deployment name:<input id="deploymentName3" style="background-color: black; color: white;"></p>
+                    <p style="background-color: yellow; font-weight: bold;">Enter port:<input id="portno" style="background-color: black; color: white;"></p>
+                    <div class="button_slide slide_down" style="background-color: #050785;" onclick="expose()">expose</div>
+                </div>
+                <div class="column3">
+                    <h3 style="background-color: yellow; text-align: center;">Delete Pod</h3>
+                    <p style="background-color: yellow; font-weight: bold;">Enter pod name:<input id="podName2" style="background-color: black; color: white;"></p>     
+                    <div class="button_slide slide_down" style="background-color: #050785;" onclick="deletepod()">Delete</div>
+                </div>
+                <div class="column3">
+                    <h3 style="background-color: yellow; text-align: center;">Delete Deployment</h3>
+                     <p style="background-color: yellow; font-weight: bold;">Enter deployment name:<input id="deploymentName4" style="background-color: black; color: white;"></p>
+                    <div class="button_slide slide_down" style="background-color: #050785;" onclick="deletedep()">Delete</div>
+                </div>
+            </div>
+        </section>
+        <script>
+
+                function po(){
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "http://13.233.127.10/cgi-bin/kubeserver.py?x=kubectl+get+pods" , true);
+                    xhr.send();
+                    var command = `kubectl get pods`;
+                    document.getElementById("roger").innerHTML = command;
+                    xhr.onreadystatechange = function() {
+                        var outputs1 = xhr.responseText;
+                        document.getElementById("cmds").innerHTML = outputs1;
+
+                    };
+
+            }
+                function node(){
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "http://13.233.127.10/cgi-bin/kubeserver.py?x=kubectl+get+nodes" , true);
+                    xhr.send();
+                    var command = `kubectl get nodes`;
+                    document.getElementById("roger").innerHTML = command;
+                    xhr.onreadystatechange = function() {
+                        var outputs1 = xhr.responseText;
+
+                        document.getElementById("cmds").innerHTML = outputs1;
+
+                    };
+
+            }
+
+                function deployments(){
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "http://13.233.127.10/cgi-bin/kubeserver.py?x=kubectl+get+deployments" , true);
+                    xhr.send();
+                    var command = "kubectl get deployments";
+                    document.getElementById("roger").innerHTML = command;
+
+                    xhr.onreadystatechange = function() {
+                        var a = xhr.responseText;
+                        document.getElementById("cmds").innerHTML = a;
+                    };
+
+            }
+                function serv(){
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "http://13.233.127.10/cgi-bin/kubeserver.py?x=kubectl+get+svc" , true);
+                    xhr.send();
+                    var command = `kubectl get svc`;
+                    document.getElementById("roger").innerHTML = command;
+                    xhr.onreadystatechange = function() {
+                        var outputs1 = xhr.responseText;
+                        document.getElementById("cmds").innerHTML = outputs1;
+
+};
+
+}
+
+                function runpodo(){
+                    var in1 = document.getElementById("podName1").value
+                    var in2 = document.getElementById("imageName1").value
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "http://13.233.127.10/cgi-bin/kubeserver.py?x=kubectl%20run%20"+ in1 +"%20--image=" +in2  , true);
+                    xhr.send();
+                    var command = `kubectl run ${in1} --image=${in2}`;
+                    document.getElementById("roger").innerHTML = command;
+                    xhr.onreadystatechange = function() {
+                        var p = xhr.responseText;
+                        document.getElementById("cmds").innerHTML = p;
+
+                };
+
+                }
+                function rundeployment(){
+                    var in3 = document.getElementById("deploymentName1").value
+                    var in4 = document.getElementById("imageName2").value
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "http://13.233.127.10/cgi-bin/kubeserver.py?x=kubectl%20create%20deploy%20"+ in3 +"%20--image="+in4 , true);
+                    xhr.send();
+                    var command = `kubectl create deploy ${in3} --image=${in4}`;
+                    document.getElementById("roger").innerHTML= command;
+                    xhr.onreadystatechange = function(){
+                        var outputs = xhr.responseText;
+                        document.getElementById("cmds").innerHTML = outputs;
+
+                };
+
+                }
+                function replica(){
+                    var in5 = document.getElementById("deploymentName2").value
+                    var in6 = document.getElementById("replicas").value
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "http://13.233.127.10/cgi-bin/kubeserver.py?x=kubectl%20scale%20deployments%20"+ in5 +"%20--replicas="+ in6 , true);
+                    xhr.send();
+                    var command = `kubectl scale deployments ${in5} --replicas=${in6}`;
+                    document.getElementById("roger").innerHTML = command;
+
+                    xhr.onreadystatechange = function() {
+                        var outputs = xhr.responseText;
+                        document.getElementById("cmds").innerHTML = outputs;
+                        };
+
+}
+                function expose(){
+                    var in7 = document.getElementById("deploymentName3").value
+                    var in8 = document.getElementById("portno").value
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "http://13.233.127.10/cgi-bin/kubeserver.py?x=kubectl%20expose%20deployments%20"+ in7 +"%20--port="+ in8 +"%20--type=NodePort", true);
+                    xhr.send();
+                        var command = `kubectl expose deployments ${in7} --port=${in8} --type=NodePort`;
+                    document.getElementById("roger").innerHTML = command;
+
+                    xhr.onreadystatechange = function() {
+                        var outputs = xhr.responseText;
+                        document.getElementById("cmds").innerHTML = outputs;
+
+                        };
+
+                }
+                function deletepod(){
+                    var in9 = document.getElementById("podName2").value
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "http://13.233.127.10/cgi-bin/kubeserver.py?x=kubectl%20delete%20pods%20"+ in9, true);
+                    xhr.send();
+                        var command = `kubectl delete pods ${in9}`;
+                    document.getElementById("roger").innerHTML = command;
+
+                    xhr.onreadystatechange = function() {
+                        var output = xhr.responseText;
+                        document.getElementById("cmds").innerHTML = output;
+
+                        };
+
+                }
+                function deletedep(){
+                    var in10 = document.getElementById("deploymentName4").value
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "http://13.233.127.10/cgi-bin/kubeserver.py?x=kubectl%20delete%20deployments%20"+ in10, true);
+                    xhr.send();
+                                    var command = `kubectl delete deployments ${in10}`;
+                                    document.getElementById("roger").innerHTML = command;
+                                    xhr.onreadystatechange = function() {
+                                        var outputs = xhr.responseText;
+                                        document.getElementById("cmds").innerHTML = outputs;
+                                        };
+                                    }
+
+
+
+        </script>
+    </body>
+</html>
+
+
+
+
+
